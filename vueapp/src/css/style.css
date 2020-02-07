@@ -1,0 +1,941 @@
+
+*{
+  font-family:"Roboto", "Montserrat", "Raleway", monospace; /* Web  fonts */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body{
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: url("../assets/images/classroom.png") no-repeat center center fixed;
+  background-size: cover;
+  background-color: rgb(26, 26, 26);
+}
+
+main{
+  min-height: 100%;
+  display: grid;
+}
+
+a.navbarLink, a.navLink, a.footnavLink{
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+  padding-top: 10px;
+  padding-right: 2px;
+}
+
+a.navbarLink:hover, a.navLink:hover, a.footnavLink:hover, a.navbarLink.active, a.footnavLink.active{
+  color: orange;
+  font-weight: bolder;
+  text-shadow: darkorange;
+}
+
+a.navbarLink:hover, a.navbarLink.active{
+  margin: 0;
+}
+
+/* CSS Grid */
+#navbar, #footnav{
+  display: grid;
+  min-height: 60px;
+  grid-auto-flow: column;
+  background-color: black;
+  grid-gap: 10px; 
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 100%; 
+}
+
+/* CSS Grid */
+#links, #navlinks, #footerlinks, #socialmedia{
+  display: grid;
+  justify-content: end;
+  align-content: center;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+  font-size: 20px; 
+}
+
+#navlinks{
+  margin-bottom: 10px;
+}
+
+#footerlinks{
+  justify-content: left;
+}
+
+
+#links{
+  margin-bottom: 10px;
+}
+
+/* CSS Grid */
+
+
+/* CSS Grid */
+.grid-container {
+  display: grid;
+  /*grid-template-columns: auto auto auto;*/
+  grid-gap: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-bottom: 3px; 
+}
+
+/* CSS Grid */
+.footergrid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+}
+
+.homegrid-container{
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+.homegrid-item{
+  text-align: left;
+  padding: 10px;
+}
+
+p.maintitle, p.maintext, p.pageReference{
+  font-size: 18px;
+  line-height: 1.15;
+  padding: 5px;
+}
+
+.maintitle{
+  font-family: "Montserrat", "Roboto", "Raleway", monospace; /* Web  fonts */  
+  color: #001a33;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-top: 20px;
+}
+
+p.maintext{
+  font-size: 20px;
+  color: black;
+  margin-bottom: 0;
+}
+
+.pageLink{
+  font-size: 14px;
+  font-style: italic; 
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+.pageLink:hover{
+  color: #00001a;
+  font-weight: bold; 
+}
+
+
+/* CSS Grid */
+.grid-item {
+  padding: 10px;
+  text-align: center; 
+}
+
+#links a.grid-item.navLink.signin-up {
+  padding-left: 0;
+}
+
+.courseTitle{ 
+  font-family: "Montserrat", "Roboto", "Raleway", monospace; /* Web  fonts */    
+  font-size: 22px;
+  color: #001a33;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 10px;
+  text-transform: uppercase; 
+}
+
+.coursedetails{
+  font-size: 18px;
+  color: #1a1a1a;
+  font-weight: bold;
+  margin: 0; 
+  padding-bottom: 10px;   
+}
+
+.moreInfo{
+  margin: 0; 
+  padding-bottom: 10px; 
+}
+
+.joinCoursebtn{
+  font-size: 18px;
+  margin: 0;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  background: #7433ff;
+
+}
+
+.joinCoursebtn:hover{
+  cursor: pointer;
+  background: #18004d;
+  font-weight: bold;
+}
+
+.navicon{
+  padding-top: 5px; 
+} 
+
+#searchButton{
+  padding-top: 2px;
+
+}
+
+#search{
+  width: 85%;
+  height: 65%;
+  padding: 3px;
+  margin-right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: lightgrey;
+}
+
+#searchBtn{
+  padding-top: 5px;
+  margin-top: -4px;
+  border: none;
+  background: transparent; 
+}
+
+#searchIcon{
+  margin-top: 3px;
+  margin-left: -4px; 
+}
+
+#searchIcon:hover{
+  cursor: pointer;
+}
+
+.navbar .search-container button:hover{
+  background: #ccc;
+}
+
+
+#allcourses{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+ul.courselist{
+  list-style: none;/* set a margin space between each "courselist" */
+  padding: 25px; /* "courselist" box padding space */
+}
+
+
+.user-dropdown {
+  overflow: hidden;
+}
+
+.user-dropdown .dropbtn {
+  font-size: 13px;  
+  border: none;
+  outline: none;
+  padding-top: 8px;
+  padding-right: 10px;
+  background-color: transparent;
+  font-family: inherit;
+  margin: 0;
+}
+
+.user-dropdown:hover .dropbtn {
+  cursor: pointer;
+}
+
+.drop-signin-up {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  background-color: black;
+  max-width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.drop-signin-up a {
+  float: none;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.drop-signin-up a:hover {
+  color: orange;
+}
+
+.user-dropdown:hover .drop-signin-up {
+  display: block;
+}
+
+.user-dropdown{
+  display: none;
+}
+
+.linebreak{
+  padding-bottom: 10px;
+}
+
+.membercolor:hover{
+  color: #02441e;
+}
+
+.successful{
+  color: #025123;
+  font-size: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bolder;
+  padding-top: 10px;
+  display: none;
+  
+}
+
+.warningsign{
+  color: #760e08;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+/* ----------- CONTACT FORM ----------- */ 
+
+
+.contact-container{
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+#contact-form .contactformIput{
+  font-size: 12px;
+}
+
+#contact-form{
+  background: rgba(255, 255, 255, 0.5);
+  padding: 25px;
+  margin: 150px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#contact-form .maintitle{
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#contact-form fieldset{
+  border: medium none;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+#contact-form .contactformIput{
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+
+#contact-form .contactformIput:hover{
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+#contact-form .contactformIput:focus{
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid rgb(40, 81, 164);
+}
+
+#contact-form textarea{
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+button.contact-button{
+  width: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-transform: uppercase;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 15px;
+}
+
+button.contact-button:hover {
+  cursor: pointer;  
+  background: black;
+  color: white;  
+  font-weight: bold;
+  transition: 0.1s ease-in-out;
+}
+
+#contact-form .contact-button:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.copyright {
+  text-align: center;
+}
+
+
+
+/* ----------- Login/Register ----------- */ 
+
+.login-wrap{
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.login-register{
+  width:100%;
+  height:100%;
+  position:absolute;
+  padding:90px 70px 50px 70px;
+}
+
+.login-register .signin, .login-register .signup{
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  position:absolute;
+  transform:rotateY(180deg);
+  backface-visibility:hidden;
+  transition:all .4s linear;
+}
+
+.login-register .sign-in, .login-register .sign-up, .loginReg-form .check{
+  display:none;
+}
+
+.login-register .tab, .loginReg-form .label, .loginReg-form .button{
+  text-transform:uppercase;
+}
+
+.login-register .tab{
+  font-size:22px;
+  padding-bottom:5px;
+  margin: 0 15px 10px 0;
+  display:inline-block;
+  border-bottom:2px solid transparent;
+}
+
+.login-register .sign-in:checked + .tab, .login-register .sign-up:checked + .tab{
+  color:rgba(0,0,0, 0.9);
+  font-weight: bold;
+  border-color:#1161ee;
+}
+
+.login-register .sign-in:not(:checked) + .tab, .login-register .sign-up:not(:checked) + .tab {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.login-register .sign-in:not(:checked):hover + .tab, .login-register .sign-up:not(:checked):hover + .tab {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.9);
+  border-color: rgba(17, 97, 238, 0.9);
+  transition: 0.1s ease-in-out;
+}
+
+.loginReg-form{
+  min-height: 345px;
+  position:relative;
+}
+
+.loginReg-form .group{
+  padding:10px;
+}
+
+.input{
+  font-size: 17px;
+}
+
+option.roleoption{
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+.loginReg-form .label, .loginReg-form .input, .loginReg-form button{
+  width:100%;
+  display:block;
+}
+
+.loginReg-form .input, .loginReg-form button{
+  border:none;
+  padding:15px 20px;
+  margin-bottom: 1px;
+  border-radius:10px;
+}
+
+.loginReg-form .input{
+  background:rgba(255,255,255,0.3);
+}
+
+.loginReg-form .input:hover{
+  transition: border-color 0.5s ease-in-out;
+}
+
+.loginReg-form .input:focus{
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid rgb(40, 81, 164);
+}
+
+.loginReg-form button{
+  background: #105776;
+  color: white;
+  font-size: 15px;
+}
+
+.loginReg-form button:hover{
+  cursor: pointer;
+  background: #665ebc;
+  color: black;
+  font-weight: bold;
+}
+
+.loginReg-form .label{
+  color: black;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.loginReg-form label .icon{
+  width:15px;
+  height:15px;
+  border-radius:2px;
+  position:relative;
+  display:inline-block;
+  background:rgba(255,255,255,.5);
+}
+
+.loginReg-form label .icon:before, .loginReg-form label .icon:after{
+  content:'';
+  width:10px;
+  height:2px;
+  background: white;
+  font-weight: bold;
+  position:absolute;
+  transition:all .2s ease-in-out 0s;
+}
+
+.loginReg-form .group label .icon:before{
+  left:3px;
+  width:5px;
+  bottom:6px;
+  transform:scale(0) rotate(0);
+}
+
+.loginReg-form .group label .icon:after{
+  top:6px;
+  right:0;
+  transform:scale(0) rotate(0);
+}
+
+.loginReg-form .check:checked + label{
+  color: #105776;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loginReg-form .check-label{
+  cursor: pointer;
+}
+
+.loginReg-form .group .check:checked + label .icon{
+  background:#1161ee;
+}
+
+.loginReg-form .group .check:checked + label .icon:before{
+  transform:scale(1) rotate(45deg);
+}
+
+.loginReg-form .group .check:checked + label .icon:after{
+  transform:scale(1) rotate(-45deg);
+}
+
+.login-register .sign-in:checked + .tab + .sign-up + .tab + .loginReg-form .signin{
+  transform:rotate(0);
+}
+
+.login-register .sign-up:checked + .tab + .loginReg-form .signup{
+  transform:rotate(0);
+}
+
+.bottom-text{
+  color: rgba(0, 0, 0, 0.7);
+  text-align:center;
+  margin-bottom: 10px;
+}
+
+.bottom-text a{
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.bottom-text a:hover, .bottom-text label:hover{
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+}
+
+
+.info, .bold, .warning{
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  justify-content: center;
+}
+
+.info{
+    padding: 10px;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.warning{
+  color: maroon;
+}
+
+.caps{
+  text-transform: uppercase;
+}
+
+/* ----------- SCALABILITY ----------- */
+
+
+@media screen and (max-width: 1265px){
+  #allcourses {
+    grid-template-columns: auto auto auto;
+/*    padding: 25px 20%;*/
+  }
+
+  .grid-item{
+    text-align: center;
+  }
+
+  ul.courselist{
+   padding: 30px; /* "courselist" box padding space */
+  }
+}
+
+
+@media screen and (max-width: 942px){
+    #allcourses {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (max-width: 715px){
+  /* CSS Grid */
+  .footergrid-container {
+    grid-template-columns: auto;
+  }
+
+  /* CSS Grid */
+  #links, #navlinks, #footerlinks, #socialmedia, .tooltip{ 
+    justify-content: center;
+    align-content: center;
+  }  
+
+  .tooltip{
+    padding-top: 10px;
+  }
+}
+
+
+
+@media screen and (max-width: 633px){
+
+
+/* CSS Grid */
+  div.navbar{
+    grid-template-columns: 100px 10px;
+  }
+
+  a.navbarLink, a.navLink{
+    font-size: 14px;
+  }
+
+
+  .courseTitle{ 
+    font-size: 20px;  
+  }
+
+  .coursedetails{
+    font-size: 15px;
+  }
+
+  .moreInfo{
+    font-size: 10px;
+  }
+
+  .joinCoursebtn{
+    font-size: 15px;
+  }
+
+/* CSS Grid */
+
+} 
+
+@media screen and (max-width: 507px){
+ #allcourses{
+  grid-template-columns: auto;
+  justify-content: center;
+  align-content: center;
+  align-items: center;  
+ }
+
+ .grid-item{
+  align-content: center;
+  align-items: center;
+ }
+
+  .courseTitle{ 
+    font-size: 25px;  
+  }
+
+  .coursedetails{
+    font-size: 20px;
+  }
+
+  .moreInfo{
+    font-size: 15px;
+  }
+
+  .joinCoursebtn{
+    font-size: 20px;
+  } 
+}
+
+
+@media screen and (max-width: 558px){
+  #search{
+    width: 80%;
+  }
+
+  #navbar{
+    padding-right: 10px;
+  }
+
+  .signin-up{
+    display: none;
+  }
+
+  .user-dropdown{
+    display: initial;
+  }
+}
+
+/* ---------------------------------------------------------- */
+
+/* Contact */
+.contactdiv {
+  width: 100%;
+}
+
+/* courses & coursesAdmin table */
+/* .coursesList {
+  width: 500px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px;
+} */
+
+.coursediv{
+  padding-top: 0;
+}
+
+
+/* App.vue */
+#app {
+  text-align: center;
+  margin: 1%;
+}
+
+.usericon{
+  margin-top: 10px;
+}
+
+.userdetails{
+  color:white;
+  margin: 0;
+  padding-bottom: 3px;
+}
+
+#userusername.userdetails{
+  margin-top: 10px;
+}
+
+#userrole.userdetails{
+  margin-bottom: 10px;
+}
+
+
+.profile {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+}
+
+.menubuttons {
+  margin-right: 10px;
+  padding: 0.25rem 0.5rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  background: #2e97c3;
+  color: black;
+  border: none;
+  font-size: 15px;  
+  text-decoration: none;
+  font-weight: bold;  
+}
+
+.menubuttons:hover {
+  cursor: pointer;
+  background: #0e5370;
+  color: white;
+  text-decoration: none;
+  font-weight: lighter;  
+}
+
+
+#addbutton, button.addcoursesbutton{
+  background: #19cf6e;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+#addbutton:hover, button.addcoursesbutton:hover{
+  background: #15a558;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#addbutton{
+  margin-top: 10px;  
+  margin-bottom: 10px;
+}
+
+div.coursesbuttons button.addcoursesbutton{
+  margin-right: 10px;
+  padding: 0.25rem 0.5rem;
+  color: black;
+}
+
+
+div.coursesbuttons button.addcoursesbutton:hover{
+  color: white;
+}
+
+
+
+#logoDiv{
+  display: grid;
+  justify-content: start;
+  align-content: center;
+}
+
+.logo, .logorouter{
+  font-family:"Rye", "Montserrat", "Roboto", monospace;  /* Web  fonts */
+  font-size: 21px;
+  color: black;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.logo:hover, .logorouter:hover{
+  color: maroon;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer; 
+}
+
+.logorouter:hover{
+  color: black;
+  cursor: default; 
+}
+
+.coursesbuttons{
+  display: inline-flex;
+  margin-bottom: 15px;
+}
+
+.sortinginfodiv{
+    float: right;
+}
+
+.sortinginfo, .sortingcriteria, .sortinginfo-bold{
+  color: white;
+}
+
+.sortinginfo-bold{
+  font-weight: bold;
+    font-size: 15px;
+}
+
+.sortingcriteria{
+  text-transform: uppercase;
+  font-size: 15px;  
+}
+
+.categorytext{
+  color: white !important;
+}
+
+#submitbutton{
+  margin-left: 5px;
+  text-transform: uppercase;
+}
+
+.sidenote, .sidenote-bold{
+  font-style: italic;
+  color: rgb(107, 106, 106);
+}
+
+.sidenote-bold{
+  font-weight: bold;
+}
+
+.ratinglabel{
+  padding-right: 5px;
+  text-transform: uppercase;
+}
