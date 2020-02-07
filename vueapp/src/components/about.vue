@@ -7,6 +7,6 @@
 
 <script>
 export default {
-  name: 'about' //this is the name of the component
+  name: 'about' //component name
 }
 </script>

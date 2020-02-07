@@ -115,8 +115,11 @@
 </template>
 
 <script>
+const API_URL_COURSES = "http://localhost:4000/courses";
+const API_URL_RATINGS = "http://localhost:4000/ratings";
+
 export default {
-  name: "coursesAdmin", //this is the name of the component
+  name: "coursesAdmin", //component name
 
   data() {
     return {
@@ -137,7 +140,7 @@ export default {
       coursesRatings: [],
       topic_id: "", //topic
       rating: "", // rating
-      submission_username: "", //user who submitted rating
+      submission_username: "", //user who submitted the rating
 
       //Form attributes
       errors: [],
@@ -170,8 +173,8 @@ export default {
     };
   },
   mounted() {
-    this.filterActive.push("provider"); //assign specific field to the filTer
-
+    this.filterActive.push("provider"); //assign specific field to the filter
+    
     //this module cannot be accessed unless user is authenticated.
     if (this.checkAccess() == false) {
       //redirect to index
@@ -179,24 +182,46 @@ export default {
       this.$router.push("/");
     }
 
-    //load from locla storage
-    if (localStorage.getItem("coursesList")) {
-      try {
-        this.coursesList = JSON.parse(localStorage.getItem("coursesList")); //local storage
-      } catch (e) {
-        localStorage.removeItem("coursesList");
-      }
+    // //load from locla storage
+    // if (localStorage.getItem("coursesList")) {
+    //   try {
+    //     this.coursesList = JSON.parse(localStorage.getItem("coursesList")); //local storage
+    //   } catch (e) {
+    //     localStorage.removeItem("coursesList");
+    //   }
+    // }
+
+    //load coursesList from mongoDB and populate the courses array
+    try {
+      fetch(API_URL_COURSES)
+        .then(response => response.json())
+        .then(result => {
+          this.coursesList = result;
+        });
+    } catch (e) {
+      this.errors.push("ERROR! Data could not be fetched from the database");
     }
 
-    //load from local storage - Ratings
-    if (localStorage.getItem("coursesRatings")) {
-      try {
-        this.coursesRatings = JSON.parse(
-          localStorage.getItem("coursesRatings")
-        ); //local storage
-      } catch (e) {
-        localStorage.removeItem("coursesRatings");
-      }
+    // //load from local storage - Ratings
+    // if (localStorage.getItem("coursesRatings")) {
+    //   try {
+    //     this.coursesRatings = JSON.parse(
+    //       localStorage.getItem("coursesRatings")
+    //     ); //local storage
+    //   } catch (e) {
+    //     localStorage.removeItem("coursesRatings");
+    //   }
+    // }    
+
+    //load coursesRatings from mongoDB and populate the ratings array
+    try {
+      fetch(API_URL_RATINGS)
+        .then(response => response.json())
+        .then(result => {
+          this.coursesRatings = result;
+        });
+    } catch (e) {
+      this.errors.push("ERROR! Data could not be fetched from the database");
     }
 
     //clear any errors in array
@@ -205,7 +230,7 @@ export default {
 
   methods: {
     //Check form inputs - check inputs and test validations
-    checkForm: function() {
+     checkForm: function() {
       this.errors = [];
 
       //only check topic if not editting.
@@ -411,17 +436,49 @@ export default {
       this.duration = "";
       this.price = "";      
       this.provider = "";
-  
 
       // save array to store
       this.savecoursesList();
     },
 
-    //save array to local storage
-    savecoursesList() {
-      localStorage.setItem("coursesList", JSON.stringify(this.coursesList));
+  //save array to local storage
+    // savecoursesList() {
+    //   localStorage.setItem("coursesList", JSON.stringify(this.coursesList));
 
-      this.formmode = false;
+    //   this.formmode = false;
+    // },
+    
+
+    //save array to database
+    savecoursesList() {
+      //delete all
+      fetch(API_URL_COURSES, {
+        method: "DELETE",
+        body: JSON.stringify(this.coursesList),
+        headers: {
+          "content-type": "application/json"
+        }
+      }).then(response => {
+        //re-submit data to mongoDB
+        if (response.status == 200) {
+          fetch(API_URL_COURSES, {
+            method: "POST",
+            body: JSON.stringify(this.coursesList),
+            headers: {
+              "content-type": "application/json"
+            }
+          }).then(response => {
+            if (response.status == 200) {
+              this.formmode = false;
+              // alert("DATA SAVED SUCCESSFULLY");
+            } else {
+              alert("DATBASE ERROR!");
+            }
+          });
+        } else {
+          alert("DATBASE ERROR!");
+        }
+      });
     },
 
     //read record and get topic at selected row
@@ -441,8 +498,8 @@ export default {
     },
 
     //read record and get topic at selected row
-    //search for the topic in respective array and get its position in array
-    //pass the recordindex to removecoursesList
+    //search for the topic in respective array and get its array position 
+    //pass the recordindex to remove coursesList
     getTopictoRemove(searchtopic) {
       var cntr = 0;
       for (cntr = 0; cntr < this.coursesList.length; cntr++) {

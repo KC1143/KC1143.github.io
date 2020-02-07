@@ -77,13 +77,16 @@
 </template>
 
 <script>
+const API_URL_COURSES = "http://localhost:4000/courses";
+const API_URL_RATINGS = "http://localhost:4000/ratings";
+
 export default {
-  name: "courses", //this is the name of the component
+  name: "courses", //component name
 
   data() {
     return {
       //local storage attributes and array
-     tempCoursesRatings: [],
+      tempCoursesRatings: [],
       coursesList: [],
       topic: "",
       type: "",
@@ -119,39 +122,63 @@ export default {
       filter: null,
       filterActive: [],
       infoModal: {
-        id: "info-modal",
-        title: "",
-        content: ""
+      id: "info-modal",
+      title: "",
+      content: ""
       },
-      userrating: "1" //default rating when loaded
+      userrating: "5" //default rating when loaded
     };
   },
   mounted() {
-    //this module cannot be accessed unless user is authenticated.
 
     if (this.checkAccess() == false) {
       //redirect to index
       alert("ACCESS DENIED!");
       this.$router.push("/");
     }
+        
+    //this module cannot be accessed unless user is authenticated.
 
-    //load from local storage - ClassActivities
-    if (localStorage.getItem("coursesList")) {
-      try {
-        this.coursesList = JSON.parse(localStorage.getItem("coursesList")); //local storage
-      } catch (e) {
-        localStorage.removeItem("coursesList");
-      }
+    // //load from local storage - coursesList
+    // if (localStorage.getItem("coursesList")) {
+    //   try {
+    //     this.coursesList = JSON.parse(localStorage.getItem("coursesList")); //local storage
+    //   } catch (e) {
+    //     localStorage.removeItem("coursesList");
+    //   }
+    // }
+
+    //load coursesList from mongoDB and populate the courses array
+    try {
+      fetch(API_URL_COURSES)
+        .then(response => response.json())
+        .then(result => {
+          this.coursesList = result;
+        });
+    } catch (e) {
+      this.errors.push("ERROR! Data could not be fetched from the database");
     }
 
-    //load from local storage - Ratings
-    if (localStorage.getItem("coursesListRatings")) {
-      try {
-        this.coursesListRatings = JSON.parse(localStorage.getItem("coursesListRatings")); //local storage
-      } catch (e) {
-        localStorage.removeItem("coursesListRatings");
-      }
+    // //load from local storage - coursesListRatings
+    // if (localStorage.getItem("coursesListRatings")) {
+    //   try {
+    //     this.coursesListRatings = JSON.parse(localStorage.getItem("coursesListRatings")); //local storage
+    //   } catch (e) {
+    //     localStorage.removeItem("coursesListRatings");
+    //   }
+    // }
+
+    //load coursesListRatings from mongoDB and populate the ratings array
+    try {
+      fetch(API_URL_RATINGS)
+        .then(response => response.json())
+        .then(result => {
+          this.coursesListRatings = result;
+        });
+    } catch (e) {
+      this.errors.push("ERROR! Data could not be fetched from the database");
     }
+
   },
 
   methods: {
@@ -215,7 +242,7 @@ export default {
       this.infoModal.content = "";
     },
 
-    //submit rating
+     //submit rating
     submitTopicRating(topic, topic_rating) {
       //check if user has already submitted rating
       var cntrratings = 0;
@@ -265,25 +292,66 @@ export default {
         Ratingnewentry = true;
       }
 
-      if (Ratingnewentry == true) {
-        //commit to local storage
-        localStorage.setItem(
-          "coursesRatings",
-          JSON.stringify(this.tempCoursesRatings)
-        );
+    //   if (Ratingnewentry == true) {
+    //     //commit to local storage
+    //     localStorage.setItem(
+    //       "coursesRatings",
+    //       JSON.stringify(this.tempCoursesRatings)
+    //     );
         
-        alert("Thank You for your feedback.");
+    //     alert("Thank You for your feedback.");
 
-        //clear values
-        this.topic_id = "";
-        this.rating = "";
-        this.username = "";
-        this.tempCoursesRatings = [];
+    //     //clear values
+    //     this.topic_id = "";
+    //     this.rating = "";
+    //     this.username = "";
+    //     this.tempCoursesRatings = [];
+    //   }
+    // },
+
+      if (Ratingnewentry == true) {
+        //delete all
+        fetch(API_URL_RATINGS, {
+          method: "DELETE",
+          body: JSON.stringify(this.tempCoursesRatings),
+          headers: {
+            "content-type": "application/json"
+          }
+        }).then(response => {
+          //re-submit data to mongoDB
+          if (response.status == 200) {
+            fetch(API_URL_RATINGS, {
+              method: "POST",
+              body: JSON.stringify(this.tempCoursesRatings),
+              headers: {
+                "content-type": "application/json"
+              }
+            }).then(response => {
+              if (response.status == 200) {
+                alert("Thank You for your feedback.");
+
+                //clear values
+                this.topic_id = "";
+                this.rating = "";
+                this.username = "";
+
+                //save values from TMP array to array
+                this.coursesListRatings = this.tempCoursesRatings;
+
+                this.tempCoursesRatings = [];
+              } else {
+                alert("DATABASE ERROR!");
+              }
+            });
+          } else {
+            alert("DATABASE ERROR!");
+          }
+        });
       }
     },
 
     //read record and get topic at selected row
-    //search for the topic in respective array and get its position in array
+    //search for the topic in respective array and get its array position
     getIDbyTopic(searchtopic) {
       var cntr = 0;
       for (cntr = 0; cntr < this.coursesList.length; cntr++) {

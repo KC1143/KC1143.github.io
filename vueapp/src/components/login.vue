@@ -5,8 +5,8 @@
           <form class="signin">
             <p id="credentialserror" class="warningsign"></p>          
               <div class="group">  
-              <label for="username" class="label">Username</label>
-                <input id="username" class="input" type="text" name="username" v-model="input.username" placeholder="john1" required/>      
+              <label for="email" class="label">Email</label>
+                <input id="email" class="input" type="email" name="email" v-model="input.username" placeholder="john1" required/>      
               </div>
 
               <div class="group">
@@ -38,12 +38,15 @@
 </template>
 
 <script>
+
+const API_URL_USERS = "http://localhost:4000/users";
+
 export default {
-  name: "login",
+  name: "login", //component name
   data() {
     return {
       input: {  //input fields
-        username: "",
+        email: "",
         password: ""
       },
       users: [], //users array 
@@ -55,19 +58,43 @@ export default {
       role: ""
     };
   },
+mounted() {
+
+      // //load users from local storage
+      // if (localStorage.getItem("users")) {
+      //   try {
+      //     this.users = JSON.parse(localStorage.getItem("users")); //local storage
+      //   } catch (e) {
+      //     localStorage.removeItem("users");
+      //   }
+      // }
+
+    //load users from mongoDB and populate the users array
+      try {
+        fetch(API_URL_USERS)
+        .then(response => response.json())
+        .then(result => {
+          this.users = result;
+        });
+      } catch (e) {
+        alert("DATABASE CONNECTION ERROR!");
+      }
+
+  },
+
   methods: {
     //reset auth user in local storage according to logged user
     setAuthUser() {
-      //clear local store
+      //clear local storage
       localStorage.removeItem("authUser");
 
       //save auth user in storage
       localStorage.setItem("authUser", JSON.stringify(this.authUser));
     },
 
-    //Check if its a Valid User - correct username login and passsword
+    //Check if its a Valid User - correct email login and passsword
     checkUser: function() {
-      var userUsername = this.input.username.toLowerCase().trim(); //username input
+      var userEmail = this.input.email.toLowerCase().trim(); //username input
       var userPassword = this.input.password; //password input
 
       //load users from local store
@@ -82,7 +109,7 @@ export default {
       var cntr = 0;
       for (cntr = 0; cntr < this.users.length; cntr++) {
         //check username at login
-        if (userUsername.toLowerCase().trim() == this.users[cntr].username.toLowerCase().trim()) {
+        if (userEmail.toLowerCase().trim() == this.users[cntr].email.toLowerCase().trim()) {
           //if found check whether password matches
           if (userPassword == this.users[cntr].password) {
             //OK- match
@@ -103,9 +130,9 @@ export default {
       return false;
     },
 
-    //Login method - return back to vue.app with true if user authentication is OK
+    //login method - return back to vue.app with true if user authentication is OK
     login() {
-      if (this.input.username.toLowerCase().trim() != "" && this.input.password != "") {
+      if (this.input.email.toLowerCase().trim() != "" && this.input.password != "") {
         //loop on users and verify login and pwd
         if (this.checkUser() == true) {
           //user exists
@@ -114,11 +141,11 @@ export default {
           this.$emit("authenticated", true);
         } else {
           // alert("The Username and/or Password is incorrect!");
-          document.getElementById("credentialserror").innerHTML = "The Username and/or Password is incorrect!";          
+          document.getElementById("credentialserror").innerHTML = "The Email and/or Password is incorrect!";          
         }
       } else {
         // alert("The Username and Password are required!");
-        document.getElementById("credentialserror").innerHTML = "The Username and Password are required!";                
+        document.getElementById("credentialserror").innerHTML = "The Email and Password are required!";                
       }
     }
   }

@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "contact",
+  name: "contact",  //component name
   data() {
     return {
       email: "familylearning@mail.com",

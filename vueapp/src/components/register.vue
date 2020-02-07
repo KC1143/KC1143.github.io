@@ -57,8 +57,10 @@
 </template>
 
 <script>
+const API_URL_USERS = "http://localhost:4000/users";
+
 export default {
-  name: "register", //this is the name of the component
+  name: "register", //component name
 
   //data structure
   data() {
@@ -74,32 +76,32 @@ export default {
       errors: []
     };
   },
+
   mounted() {
-    //load array from local storage
-    if (localStorage.getItem("users")) {
-      try {
-        this.users = JSON.parse(localStorage.getItem("users")); //local storage
-      } catch (e) {
-        localStorage.removeItem("users");
-      }
+    // //load array from local storage
+    // if (localStorage.getItem("users")) {
+    //   try {
+    //     this.users = JSON.parse(localStorage.getItem("users")); //local storage
+    //   } catch (e) {
+    //     localStorage.removeItem("users");
+    //   }
+    // }
+
+    //load users from mongoDB and populate the users array
+    try {
+      fetch(API_URL_USERS)
+        .then(response => response.json())
+        .then(result => {
+          this.users = result;
+        });
+    } catch (e) {
+      this.errors.push("ERROR! Data could not be fetched from the database");
     }
   },
+
   methods: {
-    //Check form inputs - check inputs and test validations
-    checkRegForm: function() {
+ checkRegForm: function() {
       this.errors = [];
-      // console.log(errors);
-
-      //Check if email is already in use - don't allow duplicates
-      // if (!this.email) {
-      //   this.errors.push("Please enter an Email Address.");
-
-      // } else if (!this.validEmail(this.email.toLowerCase().trim())) {
-      //   this.errors.push("Valid email required."); //check if valid email
-      // } else if (!this.EmailExits(this.email.toLowerCase().trim())) {
-      //   this.errors.push("Email already registered.");
-      // }
-
       
       if(!this.email){
         this.errors.push("Email required!");								
@@ -254,12 +256,44 @@ export default {
       this.saveUsers();
     },
 
+    // saveUsers() {
+    //   localStorage.setItem("users", JSON.stringify(this.users));
+    //   alert("Welcome to the Community");
+    //   // console.log("Registration Complete.");
+    //   //redirect to index
+    //   this.$router.push("login");
+    // } 
+
     saveUsers() {
-      localStorage.setItem("users", JSON.stringify(this.users));
-      alert("Welcome to the Community");
-      // console.log("Registration Complete.");
-      //redirect to index
-      this.$router.push("login");
+      //delete all
+      fetch(API_URL_USERS, {
+        method: "DELETE",
+        body: JSON.stringify(this.users),
+        headers: {
+          "content-type": "application/json"
+        }
+      }).then(response => {
+        //re-submit data to mongoDB
+        if (response.status == 200) {
+          fetch(API_URL_USERS, {
+            method: "POST",
+            body: JSON.stringify(this.users),
+            headers: {
+              "content-type": "application/json"
+            }
+          }).then(response => {
+            if (response.status == 200) {
+                //redirect to login
+                alert("Welcome to the Community");
+                this.$router.push("login");
+            } else {
+              alert("DATABASE ERROR!");
+            }
+          });
+        } else {
+          alert("DATABASE ERROR!");
+        }
+      });
     }
   }
 };
