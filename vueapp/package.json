@@ -1,21 +1,46 @@
 {
-  "name": "vue-express",
-  "version": "1.0.0",
-  "description": "Vue App",
-  "main": "index.js",
+  "name": "mongo",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "axios": "^0.19.2",
+    "bootstrap-vue": "^2.4.0",
+    "core-js": "^3.6.4",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongodb": "^3.5.2"
+    "monk": "^7.1.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.1.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
