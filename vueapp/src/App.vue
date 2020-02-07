@@ -12,9 +12,9 @@
 
     <nav class="appnav">
       <!--Navigation Menus load according to logged user role-->
-      <!--Admin Menus-->
-      <span v-if="role === 'Admin'">
-        <router-link class="menubuttons" v-for="routes in Adminlinks" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
+      <!--Users Service Provider Menus-->
+      <span v-if="role === 'Users Service Provider'">
+        <router-link class="menubuttons" v-for="routes in usersProviderlinks" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
       </span>
 
       <!--Parent and Student Menus-->
@@ -22,9 +22,9 @@
         <router-link class="menubuttons" v-for="routes in PSlinks" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
       </span>
 
-      <!--Provider-->
-      <span v-if="role === 'Service Provider'">
-        <router-link class="menubuttons" v-for="routes in Providerlinks" v-bind:title="routes.text" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
+      <!--Courses Service Provider Menus -->
+      <span v-if="role === 'Courses Service Provider'">
+        <router-link class="menubuttons" v-for="routes in coursesProviderlinks" v-bind:title="routes.text" v-bind:key="routes.id" :to="`${routes.page}`">{{routes.text}}</router-link>
       </span>
 
       <!--Other links-->
@@ -75,17 +75,12 @@ export default {
       role: "",
 
       //menu links array definitions
-      Adminlinks: [
+      usersProviderlinks: [
         {
           id: 0,
-          text: "User Maintenance",
-          page: "/UserAdmin"
+          text: "Users Maintenance",
+          page: "/usersAdmin"
         },
-        {
-          id: 1,
-          text: "Class Activity Maintenance",
-          page: "/ClassActivityAdmin"
-        }
       ],
 
       PSlinks: [
@@ -96,7 +91,7 @@ export default {
         }
       ],
 
-      Providerlinks: [
+      coursesProviderlinks: [
         {
           id: 0,
           text: "Courses Maintenance",

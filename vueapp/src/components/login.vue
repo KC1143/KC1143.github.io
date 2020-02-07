@@ -39,7 +39,7 @@
 
 <script>
 
-const API_URL_USERS = "http://localhost:4000/users";
+const API_URL_USERS = "http://localhost:5000/users";
 
 export default {
   name: "login", //component name

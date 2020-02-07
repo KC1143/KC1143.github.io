@@ -77,8 +77,8 @@
 </template>
 
 <script>
-const API_URL_COURSES = "http://localhost:4000/courses";
-const API_URL_RATINGS = "http://localhost:4000/ratings";
+const API_URL_COURSES = "http://localhost:5000/courses";
+const API_URL_RATINGS = "http://localhost:5000/ratings";
 
 export default {
   name: "courses", //component name

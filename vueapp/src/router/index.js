@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 //import components 
+import usersAdmin from '@/components/usersAdmin'
 import index from '@/components/index'
 import home from '@/components/home'
 import about from '@/components/about'
@@ -22,6 +23,11 @@ Vue.use(Router)
 //definition of routes and component paths
 export default new Router({
   routes: [
+    {
+      path: '/usersAdmin',
+      name: 'usersAdmin',
+      component: usersAdmin
+    },
     {
       path: '/index',
       name: '/',

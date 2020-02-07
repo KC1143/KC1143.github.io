@@ -115,8 +115,8 @@
 </template>
 
 <script>
-const API_URL_COURSES = "http://localhost:4000/courses";
-const API_URL_RATINGS = "http://localhost:4000/ratings";
+const API_URL_COURSES = "http://localhost:5000/courses";
+const API_URL_RATINGS = "http://localhost:5000/ratings";
 
 export default {
   name: "coursesAdmin", //component name
@@ -350,7 +350,7 @@ export default {
           this.authUser = JSON.parse(localStorage.getItem("authUser")); //local storage
           if (this.authUser[0].username.length > 0) {
             //check if logged user is provider
-            if (this.authUser[0].role == "Service Provider") {
+            if (this.authUser[0].role == "Courses Service Provider") {
               this.username = this.authUser[0].username; //get username and save it for grid refresh and save
               return true; //allow component to be accessed
             }
